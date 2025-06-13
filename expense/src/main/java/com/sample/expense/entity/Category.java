@@ -1,5 +1,6 @@
 package com.sample.expense.entity;
 
+import com.sample.expense.entity.enumeration.CategoryType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,9 +19,9 @@ public class Category {
     private String name;
     @Column(name = "USER_ID")
     private Long userId;
-    @ManyToOne
-    @JoinColumn(name = "PARENT_ID", foreignKey = @ForeignKey(name = "PARENT_ID_TBL_CATEGORY_TBL_CATEGORY"))
-    private Category parent;
+    @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
+    private CategoryType type;
     @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "CREATED_TIME")

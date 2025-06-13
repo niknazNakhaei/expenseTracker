@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class ExpenseDto {
     private Long userId;
+    private String categoryName;
     private Long categoryId;
     private BigDecimal amount;
     private LocalDateTime expenseDate;

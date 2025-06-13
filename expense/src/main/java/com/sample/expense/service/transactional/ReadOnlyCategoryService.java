@@ -1,4 +1,5 @@
 package com.sample.expense.service.transactional;
 
-public interface TransactionalCategoryService {
+public interface ReadOnlyCategoryService {
+
 }
