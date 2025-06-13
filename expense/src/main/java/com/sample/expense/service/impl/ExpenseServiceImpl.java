@@ -8,8 +8,11 @@ import com.sample.expense.exception.NotFoundExpenseException;
 import com.sample.expense.mapper.ExpenseMapper;
 import com.sample.expense.service.ExpenseService;
 import com.sample.expense.service.impl.transactional.TransactionalExpenseServiceImpl;
+import com.sample.expense.util.Topic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,8 +22,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ExpenseServiceImpl implements ExpenseService {
 
-    private final TransactionalExpenseServiceImpl expenseService;
     private final ExpenseMapper mapper;
+    private final StreamBridge streamBridge;
+    private final TransactionalExpenseServiceImpl expenseService;
 
     @Override
     public void saveExpense(ExpenseDto dto) throws InternalExpenseException {
@@ -29,6 +33,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             Expense expense = mapper.mapToEntity(dto);
             expense.setCreationTime(LocalDateTime.now());
             SentEvent sentEvent = expenseService.saveExpense(expense);
+            sentToKafkaConsumer(sentEvent);
         } catch (Exception e) {
             throw new InternalExpenseException(e.getMessage());
         }
@@ -41,6 +46,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             Expense expense = mapper.mapToEntity(dto);
             expense.setUpdatedTime(LocalDateTime.now());
             SentEvent sentEvent = expenseService.updateExpense(expense);
+            sentToKafkaConsumer(sentEvent);
         } catch (NotFoundExpenseException e) {
             log.warn("expense : {} not found", dto.getCategoryName());
         } catch (Exception e) {
@@ -53,12 +59,16 @@ public class ExpenseServiceImpl implements ExpenseService {
         try {
             log.info("Try to delete expense: {}", expenseId);
             SentEvent sentEvent = expenseService.deleteExpense(expenseId);
+            sentToKafkaConsumer(sentEvent);
         } catch (Exception e) {
             throw new InternalExpenseException(e.getMessage(), e);
         }
     }
 
-    public void sentToKafkaConsumer() {
-
+    public void sentToKafkaConsumer(SentEvent sentEvent) {
+        log.info("Sent to Kafka consumer: {}", sentEvent);
+        streamBridge.send(Topic.EXPENSE.getTopicName(),
+                MessageBuilder.withPayload(sentEvent)
+                        .setHeader("KEY", sentEvent.getCategory().getName()).build());
     }
 }

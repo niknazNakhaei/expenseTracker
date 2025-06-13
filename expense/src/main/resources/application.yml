@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        processExpense-in-0:
+          destination: expense-processor
