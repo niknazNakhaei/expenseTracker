@@ -17,6 +17,8 @@ public class SentEvent {
     @ManyToOne()
     @JoinColumn(name = "CATEGORY_ID", foreignKey = @ForeignKey(name = "CATEGORY_ID_TBL_CATEGORY_TBL_SENT_EVENT"))
     private Category category;
+    @Column(name = "EXPENSE_TIME")
+    private LocalDateTime expenseTime;
     @Column(name = "PROCESSED")
     private Boolean processed;
     @Column(name = "CREATION_TIME")

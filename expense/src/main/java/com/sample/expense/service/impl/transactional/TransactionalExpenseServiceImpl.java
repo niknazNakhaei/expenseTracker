@@ -22,7 +22,7 @@ public class TransactionalExpenseServiceImpl implements ReadOnlyExpenseService {
     @Transactional
     public SentEvent saveExpense(Expense expense) {
         expenseDao.save(expense);
-        return sentEventDao.save(sentEventMapper.mapToEntity(expense.getCategory()));
+        return sentEventDao.save(sentEventMapper.mapToEntity(expense.getCategory(), expense.getExpenseTime()));
     }
 
     @Transactional
@@ -32,7 +32,7 @@ public class TransactionalExpenseServiceImpl implements ReadOnlyExpenseService {
             existExpense.setDescription(expense.getDescription());
             existExpense.setExpenseTime(expense.getExpenseTime());
             expenseDao.save(existExpense);
-            return sentEventDao.save(sentEventMapper.mapToEntity(expense.getCategory()));
+            return sentEventDao.save(sentEventMapper.mapToEntity(expense.getCategory(), existExpense.getExpenseTime()));
         }).orElseThrow(() -> new NotFoundExpenseException("Expense not found"));
     }
 
@@ -40,7 +40,7 @@ public class TransactionalExpenseServiceImpl implements ReadOnlyExpenseService {
     public SentEvent deleteExpense(Long expenseId) {
         return expenseDao.findById(expenseId).map(existExpense -> {
             expenseDao.delete(existExpense);
-            return sentEventDao.save(sentEventMapper.mapToEntity(existExpense.getCategory()));
+            return sentEventDao.save(sentEventMapper.mapToEntity(existExpense.getCategory(), existExpense.getExpenseTime()));
         }).orElseThrow(() -> new NotFoundExpenseException("Expense not found"));
     }
 }

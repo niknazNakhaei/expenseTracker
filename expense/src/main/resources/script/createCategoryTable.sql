@@ -2,9 +2,9 @@ CREATE TABLE TBL_CATEGORY
 (
     ID           NUMBER(20) not null,
     NAME         NVARCHAR2(100),
-    TYPE         NUMBER(20),
+    TYPE         NVARCHAR2(20),
     USER_ID      NUMBER(20),
-    DESCRIPTION  NUMBER(20),
+    DESCRIPTION  NVARCHAR2(1000),
     CREATED_TIME TIMESTAMP
 )
     /

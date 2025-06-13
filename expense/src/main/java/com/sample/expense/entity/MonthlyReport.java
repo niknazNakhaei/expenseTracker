@@ -1,0 +1,34 @@
+package com.sample.expense.entity;
+
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Data
+@Entity
+@Table(name="TBL_MONTHLY_REPORT")
+@SequenceGenerator(name = "SEQ_GEN_MNT_RPT", sequenceName = "SEQ_MNT_RPT", allocationSize = 10)
+public class MonthlyReport {
+
+    @Id
+    @GeneratedValue(generator = "SEQ_GEN_MNT_RPT", strategy = GenerationType.SEQUENCE)
+    private Long id;
+    @ManyToOne()
+    @JoinColumn(name = "CATEGORY_ID", foreignKey = @ForeignKey(name = "CATEGORY_ID_TBL_MNT_RPT_TBL_CATEGORY"))
+    private Category category;
+    @Column(name = "CUMULATIVE_AMOUNT")
+    private BigDecimal cumulativeAmount;
+    @Column(name = "DESCRIPTION")
+    private String description;
+    @Column(name = "FROM_DATE")
+    private LocalDateTime fromDate;
+    @Column(name = "TO_DATE")
+    private LocalDateTime toDate;
+    @Column(name = "CREATION_TIME")
+    private LocalDateTime creationTime;
+    @Column(name = "UPDATED_TIME")
+    private LocalDateTime updatedTime;
+}
