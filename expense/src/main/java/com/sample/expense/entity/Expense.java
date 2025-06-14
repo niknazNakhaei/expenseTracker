@@ -15,8 +15,6 @@ public class Expense {
     @Id
     @GeneratedValue(generator = "GEN_SEQ_EXPENSE", strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(name = "USER_ID")
-    private Long userId;
     @ManyToOne()
     @JoinColumn(name = "CATEGORY_ID", foreignKey = @ForeignKey(name = "CATEGORY_ID_TBL_EXPENSE_TBL_CATEGORY"))
     private Category category;

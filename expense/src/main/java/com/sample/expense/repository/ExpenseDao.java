@@ -3,13 +3,14 @@ package com.sample.expense.repository;
 import com.sample.expense.entity.Expense;
 import com.sample.expense.entity.projection.MonthlyExpense;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public interface ExpenseDao extends JpaRepository<Expense, Long> {
+public interface ExpenseDao extends JpaRepository<Expense, Long>, JpaSpecificationExecutor<Expense> {
 
     Optional<Expense> findById(Long categoryId);
 

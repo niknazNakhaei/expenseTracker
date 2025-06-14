@@ -1,6 +1,7 @@
 package com.sample.expense.service.impl;
 
 import com.sample.expense.dto.ExpenseDto;
+import com.sample.expense.dto.ExpenseSearchDto;
 import com.sample.expense.entity.Expense;
 import com.sample.expense.entity.SentEvent;
 import com.sample.expense.exception.InternalExpenseException;
@@ -16,6 +17,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -70,5 +72,10 @@ public class ExpenseServiceImpl implements ExpenseService {
         streamBridge.send(Topic.EXPENSE.getTopicName(),
                 MessageBuilder.withPayload(sentEvent)
                         .setHeader("KEY", sentEvent.getCategory().getName()).build());
+    }
+
+    @Override
+    public List<ExpenseDto> searchExpense(ExpenseSearchDto searchDto) {
+        return expenseService.searchExpense(searchDto);
     }
 }

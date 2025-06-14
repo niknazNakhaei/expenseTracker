@@ -6,10 +6,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class ExpenseDto {
+public class MonthlyReportSearchDto {
     private String categoryName;
     private Long categoryId;
-    private BigDecimal amount;
-    private LocalDateTime expenseDate;
-    private String description;
+    private BigDecimal cumulativeAmount;
+    private LocalDateTime fromDate;
+    private LocalDateTime toDate;
 }

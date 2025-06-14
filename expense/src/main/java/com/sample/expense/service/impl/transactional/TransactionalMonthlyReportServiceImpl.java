@@ -1,17 +1,26 @@
 package com.sample.expense.service.impl.transactional;
 
+import com.sample.expense.dto.MonthlyReportDto;
+import com.sample.expense.dto.MonthlyReportSearchDto;
 import com.sample.expense.entity.MonthlyReport;
 import com.sample.expense.exception.InternalExpenseException;
 import com.sample.expense.exception.NotFoundMonthlyReportException;
+import com.sample.expense.mapper.MonthlyReportMapper;
 import com.sample.expense.repository.MonthlyReportDao;
 import com.sample.expense.service.SentEventService;
 import com.sample.expense.service.transactional.ReadOnlyMonthlyReportService;
+import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -21,6 +30,7 @@ public class TransactionalMonthlyReportServiceImpl implements ReadOnlyMonthlyRep
 
     private final MonthlyReportDao monthlyReportDao;
     private final SentEventService sentEventService;
+    private final MonthlyReportMapper monthlyReportMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -52,4 +62,33 @@ public class TransactionalMonthlyReportServiceImpl implements ReadOnlyMonthlyRep
                     throw new NotFoundMonthlyReportException("Monthly Report Not Found");
                 });
     }
+
+    @Override
+    public List<MonthlyReportDto> searchMonthlyReport(MonthlyReportSearchDto searchDto) {
+        return monthlyReportMapper.mapToDtoList(monthlyReportDao.findAll(generateSpecification(searchDto)));
+    }
+
+    private Specification<MonthlyReport> generateSpecification(MonthlyReportSearchDto searchDto) {
+        return (root, query, builder) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+
+            if (StringUtils.hasLength(searchDto.getCategoryName())) {
+                predicateList.add(builder.equal(root.get("category_.name"), searchDto.getCategoryName()));
+            }
+            if (Objects.nonNull(searchDto.getCategoryId())) {
+                predicateList.add(builder.equal(root.get("category_.id"), searchDto.getCategoryId()));
+            }
+            if (Objects.nonNull(searchDto.getCumulativeAmount())) {
+                predicateList.add(builder.greaterThanOrEqualTo(root.get("cumulativeAmount"), searchDto.getCumulativeAmount()));
+            }
+            if (Objects.nonNull(searchDto.getFromDate())) {
+                predicateList.add(builder.between(root.get("fromDate"), searchDto.getFromDate(), LocalDateTime.now()));
+            }
+            if (Objects.nonNull(searchDto.getToDate())) {
+                predicateList.add(builder.between(root.get("toDate"), searchDto.getToDate().minusMonths(1l), searchDto.getToDate()));
+            }
+            return builder.and(predicateList.toArray(new Predicate[0]));
+        };
+    }
+
 }
