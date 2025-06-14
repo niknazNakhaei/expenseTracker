@@ -1,6 +1,6 @@
 package com.sample.expense.service.impl.transactional;
 
-import com.sample.expense.dto.MonthlyReportDto;
+import com.sample.expense.dto.MonthlyReportResponseSearch;
 import com.sample.expense.dto.MonthlyReportSearchDto;
 import com.sample.expense.entity.MonthlyReport;
 import com.sample.expense.exception.InternalExpenseException;
@@ -64,8 +64,10 @@ public class TransactionalMonthlyReportServiceImpl implements ReadOnlyMonthlyRep
     }
 
     @Override
-    public List<MonthlyReportDto> searchMonthlyReport(MonthlyReportSearchDto searchDto) {
-        return monthlyReportMapper.mapToDtoList(monthlyReportDao.findAll(generateSpecification(searchDto)));
+    public MonthlyReportResponseSearch searchMonthlyReport(MonthlyReportSearchDto searchDto) {
+        MonthlyReportResponseSearch monthlyReportResponseSearch = new MonthlyReportResponseSearch();
+        monthlyReportResponseSearch.setMonthlyReportDtoList(monthlyReportMapper.mapToDtoList(monthlyReportDao.findAll(generateSpecification(searchDto))));
+        return monthlyReportResponseSearch;
     }
 
     private Specification<MonthlyReport> generateSpecification(MonthlyReportSearchDto searchDto) {

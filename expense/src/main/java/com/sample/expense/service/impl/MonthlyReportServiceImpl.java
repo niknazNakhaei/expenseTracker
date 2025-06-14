@@ -1,6 +1,6 @@
 package com.sample.expense.service.impl;
 
-import com.sample.expense.dto.MonthlyReportDto;
+import com.sample.expense.dto.MonthlyReportResponseSearch;
 import com.sample.expense.dto.MonthlyReportSearchDto;
 import com.sample.expense.entity.MonthlyReport;
 import com.sample.expense.exception.InternalExpenseException;
@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -52,7 +51,7 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
     }
 
     @Override
-    public List<MonthlyReportDto> searchMonthlyReport(MonthlyReportSearchDto searchDto) {
+    public MonthlyReportResponseSearch searchMonthlyReport(MonthlyReportSearchDto searchDto) {
         return monthlyReportService.searchMonthlyReport(searchDto);
     }
 }

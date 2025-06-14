@@ -1,6 +1,6 @@
 package com.sample.expense.service.impl.transactional;
 
-import com.sample.expense.dto.CategoryDto;
+import com.sample.expense.dto.CategoryResponseSearch;
 import com.sample.expense.dto.CategorySearchDto;
 import com.sample.expense.entity.Category;
 import com.sample.expense.exception.NotFoundExpenseException;
@@ -33,17 +33,19 @@ public class TransactionalCategoryServiceImpl implements ReadOnlyCategoryService
 
     @Transactional
     public void updateCategory(Category category) throws NotFoundExpenseException {
-        categoryDao.findById(category.getId()).map(existCategory->{
+        categoryDao.findById(category.getId()).map(existCategory -> {
             existCategory.setName(category.getName());
             existCategory.setDescription(category.getDescription());
             return categoryDao.save(existCategory);
-        }).orElseThrow(()->new NotFoundExpenseException("Category not found"));
+        }).orElseThrow(() -> new NotFoundExpenseException("Category not found"));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryDto> searchCategory(CategorySearchDto searchDto) {
-        return mapper.mapToDtoList(categoryDao.findAll(generateSpecification(searchDto)));
+    public CategoryResponseSearch searchCategory(CategorySearchDto searchDto) {
+        CategoryResponseSearch categoryResponseSearch = new CategoryResponseSearch();
+        categoryResponseSearch.setCategoryDtoList(mapper.mapToDtoList(categoryDao.findAll(generateSpecification(searchDto))));
+        return categoryResponseSearch;
     }
 
     private Specification<Category> generateSpecification(CategorySearchDto searchDto) {

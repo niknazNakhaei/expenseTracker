@@ -1,6 +1,6 @@
 package com.sample.expense.service.impl.transactional;
 
-import com.sample.expense.dto.ExpenseDto;
+import com.sample.expense.dto.ExpenseResponseSearch;
 import com.sample.expense.dto.ExpenseSearchDto;
 import com.sample.expense.entity.Expense;
 import com.sample.expense.entity.SentEvent;
@@ -57,8 +57,10 @@ public class TransactionalExpenseServiceImpl implements ReadOnlyExpenseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExpenseDto> searchExpense(ExpenseSearchDto searchDto) {
-        return expenseMapper.mapToDtoList(expenseDao.findAll(generateSpecification(searchDto)));
+    public ExpenseResponseSearch searchExpense(ExpenseSearchDto searchDto) {
+        ExpenseResponseSearch expenseResponseSearch = new ExpenseResponseSearch();
+        expenseResponseSearch.setExpenseDtoList(expenseMapper.mapToDtoList(expenseDao.findAll(generateSpecification(searchDto))));
+        return expenseResponseSearch;
     }
 
     private Specification<Expense> generateSpecification(ExpenseSearchDto searchDto) {

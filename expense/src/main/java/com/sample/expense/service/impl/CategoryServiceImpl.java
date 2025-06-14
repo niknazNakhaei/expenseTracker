@@ -1,6 +1,7 @@
 package com.sample.expense.service.impl;
 
 import com.sample.expense.dto.CategoryDto;
+import com.sample.expense.dto.CategoryResponseSearch;
 import com.sample.expense.dto.CategorySearchDto;
 import com.sample.expense.entity.Category;
 import com.sample.expense.exception.InternalExpenseException;
@@ -11,8 +12,6 @@ import com.sample.expense.service.impl.transactional.TransactionalCategoryServic
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -47,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> searchCategory(CategorySearchDto searchDto) {
+    public CategoryResponseSearch searchCategory(CategorySearchDto searchDto) {
         return categoryService.searchCategory(searchDto);
     }
 }
