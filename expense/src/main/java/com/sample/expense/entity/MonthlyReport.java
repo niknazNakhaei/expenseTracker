@@ -21,8 +21,8 @@ public class MonthlyReport {
     private Category category;
     @Column(name = "CUMULATIVE_AMOUNT")
     private BigDecimal cumulativeAmount;
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "ALERT")
+    private String alert;
     @Column(name = "FROM_DATE")
     private LocalDateTime fromDate;
     @Column(name = "TO_DATE")

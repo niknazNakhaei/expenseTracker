@@ -3,7 +3,7 @@ package com.sample.expense.exception;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class InternalExpenseException extends Exception {
+public class InternalExpenseException extends RuntimeException {
 
     public InternalExpenseException(String message) {
         super(message);
