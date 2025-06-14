@@ -1,4 +1,4 @@
-package com.sample.expense.dto;
+package com.sample.gateway.dto.request;
 
 import lombok.Data;
 
@@ -6,14 +6,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class MonthlyReportDto {
-
+public class MonthlyReportSearchDto {
     private String categoryName;
     private Long categoryId;
     private BigDecimal cumulativeAmount;
-    private String alert;
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
-    private LocalDateTime createdTime;
-    private LocalDateTime updatedTime;
 }

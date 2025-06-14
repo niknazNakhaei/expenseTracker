@@ -27,8 +27,8 @@ public class MonthlyReport {
     private LocalDateTime fromDate;
     @Column(name = "TO_DATE")
     private LocalDateTime toDate;
-    @Column(name = "CREATION_TIME")
-    private LocalDateTime creationTime;
+    @Column(name = "CREATED_TIME")
+    private LocalDateTime createdTime;
     @Column(name = "UPDATED_TIME")
     private LocalDateTime updatedTime;
 }

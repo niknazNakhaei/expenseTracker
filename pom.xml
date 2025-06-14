@@ -29,7 +29,7 @@
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <maven-compiler-source.version>17</maven-compiler-source.version>
         <maven-compiler-target.version>17</maven-compiler-target.version>
-        <spring-doc.version>2.3.0</spring-doc.version>
+        <spring-doc.version>2.8.9</spring-doc.version>
     </properties>
 
     <packaging>pom</packaging>

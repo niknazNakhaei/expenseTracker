@@ -1,4 +1,4 @@
-package com.sample.gateway.incoming.auth;
+package com.sample.gateway.incoming;
 
 import com.sample.gateway.dto.request.UserDto;
 import com.sample.gateway.exception.dto.ErrorResponseDto;

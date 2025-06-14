@@ -64,6 +64,7 @@ public class TransactionalMonthlyReportServiceImpl implements ReadOnlyMonthlyRep
     }
 
     @Override
+    @Transactional(readOnly = true)
     public MonthlyReportResponseSearch searchMonthlyReport(MonthlyReportSearchDto searchDto) {
         MonthlyReportResponseSearch monthlyReportResponseSearch = new MonthlyReportResponseSearch();
         monthlyReportResponseSearch.setMonthlyReportDtoList(monthlyReportMapper.mapToDtoList(monthlyReportDao.findAll(generateSpecification(searchDto))));

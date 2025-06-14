@@ -1,6 +1,7 @@
 package com.sample.expense.mapper;
 
 import com.sample.expense.dto.CategoryDto;
+import com.sample.expense.dto.CategoryUpdateDto;
 import com.sample.expense.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,4 +17,6 @@ public interface CategoryMapper {
 
     @Mapping(target = "id", ignore = true)
     Category mapToEntity(CategoryDto dto);
+
+    Category mapToEntity(CategoryUpdateDto dto);
 }

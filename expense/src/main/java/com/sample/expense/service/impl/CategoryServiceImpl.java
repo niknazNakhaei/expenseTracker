@@ -3,6 +3,7 @@ package com.sample.expense.service.impl;
 import com.sample.expense.dto.CategoryDto;
 import com.sample.expense.dto.CategoryResponseSearch;
 import com.sample.expense.dto.CategorySearchDto;
+import com.sample.expense.dto.CategoryUpdateDto;
 import com.sample.expense.entity.Category;
 import com.sample.expense.exception.InternalExpenseException;
 import com.sample.expense.exception.NotFoundCategoryException;
@@ -12,6 +13,8 @@ import com.sample.expense.service.impl.transactional.TransactionalCategoryServic
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -26,6 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
         try {
             log.info("Try to save category: {}", dto.getName());
             Category category=mapper.mapToEntity(dto);
+            category.setCreatedTime(LocalDateTime.now());
             categoryService.saveCategory(category);
         } catch (Exception e) {
             throw new InternalExpenseException(e.getMessage());
@@ -33,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(CategoryDto dto) throws InternalExpenseException, NotFoundCategoryException {
+    public void updateCategory(CategoryUpdateDto dto) throws InternalExpenseException, NotFoundCategoryException {
         try {
             log.info("Try to update category: {}", dto.getName());
             Category category=mapper.mapToEntity(dto);

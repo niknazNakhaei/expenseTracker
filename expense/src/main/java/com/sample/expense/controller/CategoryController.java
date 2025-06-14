@@ -3,6 +3,7 @@ package com.sample.expense.controller;
 import com.sample.expense.dto.CategoryDto;
 import com.sample.expense.dto.CategoryResponseSearch;
 import com.sample.expense.dto.CategorySearchDto;
+import com.sample.expense.dto.CategoryUpdateDto;
 import com.sample.expense.exception.InternalExpenseException;
 import com.sample.expense.exception.NotFoundCategoryException;
 import com.sample.expense.service.CategoryService;
@@ -24,7 +25,7 @@ public class CategoryController {
     }
 
     @PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
-    ResponseEntity<Void> update(@RequestBody CategoryDto categoryDto) throws InternalExpenseException, NotFoundCategoryException {
+    ResponseEntity<Void> update(@RequestBody CategoryUpdateDto categoryDto) throws InternalExpenseException, NotFoundCategoryException {
         categoryService.updateCategory(categoryDto);
         return ResponseEntity.ok().build();
     }

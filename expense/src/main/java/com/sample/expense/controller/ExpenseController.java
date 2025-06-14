@@ -22,13 +22,13 @@ public class ExpenseController {
     }
 
     @PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
-    ResponseEntity<Void> update(@RequestBody ExpenseDto expenseDto) throws InternalExpenseException, NotFoundExpenseException {
+    ResponseEntity<Void> update(@RequestBody ExpenseUpdateDto expenseDto) throws InternalExpenseException, NotFoundExpenseException {
         expenseService.updateExpense(expenseDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(path = "/delete/{expensedId}", consumes = "application/json", produces = "application/json")
-    ResponseEntity<Void> update(@PathVariable Long expensedId) throws InternalExpenseException {
+    ResponseEntity<Void> delete(@PathVariable Long expensedId) throws InternalExpenseException {
         expenseService.deleteExpense(expensedId);
         return ResponseEntity.ok().build();
     }

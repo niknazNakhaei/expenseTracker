@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ErrorResponseDto {
-    private String exception;
     private String message;
+    private String timestamp;
+    private String path;
 }

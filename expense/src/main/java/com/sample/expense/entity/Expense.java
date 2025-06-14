@@ -24,8 +24,8 @@ public class Expense {
     private String description;
     @Column(name = "EXPENSE_TIME")
     private LocalDateTime expenseTime;
-    @Column(name = "CREATION_TIME")
-    private LocalDateTime creationTime;
+    @Column(name = "CREATED_TIME")
+    private LocalDateTime createdTime;
     @Column(name = "UPDATED_TIME")
     private LocalDateTime updatedTime;
 }

@@ -25,7 +25,7 @@ public class MonthlyReportMapper {
         if(StringUtils.hasLength(alert)) {
             monthlyReport.setAlert(alert);
         }
-        monthlyReport.setCreationTime(LocalDateTime.now());
+        monthlyReport.setCreatedTime(LocalDateTime.now());
         return monthlyReport;
     }
 
@@ -39,7 +39,7 @@ public class MonthlyReportMapper {
             monthlyReportDto.setCumulativeAmount(monthlyReport.getCumulativeAmount());
             monthlyReportDto.setAlert(monthlyReport.getAlert());
             monthlyReportDto.setUpdatedTime(monthlyReport.getUpdatedTime());
-            monthlyReportDto.setCreationTime(monthlyReport.getCreationTime());
+            monthlyReportDto.setCreatedTime(monthlyReport.getCreatedTime());
             return monthlyReportDto;
         }).toList();
     }

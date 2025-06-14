@@ -1,4 +1,4 @@
-package com.sample.expense.dto;
+package com.sample.gateway.dto.response;
 
 import lombok.Data;
 

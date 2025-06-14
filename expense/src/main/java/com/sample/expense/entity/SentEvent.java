@@ -14,8 +14,6 @@ public class SentEvent {
     @Id
     @GeneratedValue(generator = "SEQ_GEN_SENT_EVENT", strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(name = "USER_ID")
-    private Long userId;
     @ManyToOne()
     @JoinColumn(name = "CATEGORY_ID", foreignKey = @ForeignKey(name = "CATEGORY_ID_TBL_CATEGORY_TBL_SENT_EVENT"))
     private Category category;

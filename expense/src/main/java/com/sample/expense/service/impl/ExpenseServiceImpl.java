@@ -3,6 +3,7 @@ package com.sample.expense.service.impl;
 import com.sample.expense.dto.ExpenseDto;
 import com.sample.expense.dto.ExpenseResponseSearch;
 import com.sample.expense.dto.ExpenseSearchDto;
+import com.sample.expense.dto.ExpenseUpdateDto;
 import com.sample.expense.entity.Expense;
 import com.sample.expense.entity.SentEvent;
 import com.sample.expense.exception.InternalExpenseException;
@@ -33,7 +34,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         try {
             log.info("Try to save expense: {} with amount:{}", dto.getCategoryName(), dto.getAmount());
             Expense expense = mapper.mapToEntity(dto);
-            expense.setCreationTime(LocalDateTime.now());
+            expense.setCreatedTime(LocalDateTime.now());
             SentEvent sentEvent = expenseService.saveExpense(expense);
             sentToKafkaConsumer(sentEvent);
         } catch (Exception e) {
@@ -42,7 +43,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public void updateExpense(ExpenseDto dto) throws InternalExpenseException, NotFoundExpenseException {
+    public void updateExpense(ExpenseUpdateDto dto) throws InternalExpenseException, NotFoundExpenseException {
         try {
             log.info("Try to update expense: {} and amount: {}", dto.getCategoryName(), dto.getAmount());
             Expense expense = mapper.mapToEntity(dto);
