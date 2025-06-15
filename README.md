@@ -64,14 +64,17 @@ Example:
 
 ```http
 POST http://localhost:8080/category/search
-📂 Database Tables
+
+## 📂 Database Tables
+
 Table	Description
 tbl_category	User-defined categories
 tbl_expense	Income/expense records
 tbl_sent_event	Stores sent Kafka messages
 tbl_monthly_report	Aggregated report (Kafka Stream output)
 
-📦 API Flow Diagram
+## 📦 API Flow Diagram
+
 sequenceDiagram
     participant Client
     participant Gateway
@@ -91,7 +94,8 @@ sequenceDiagram
     Kafka->>ReportDB: Aggregate and save monthly report
     Client->>Gateway: /search (for categories/expenses/reports)
 
-🧪 How to Run
+## 🧪 How to Run
+
 Ensure Kafka, Oracle DB, and all ports are running.
 
 Run each module (gateway, auth, expense) individually or as part of a monorepo.
@@ -110,15 +114,18 @@ Expense Tracking
 Monthly Reports
 
 
-📌 Notes
+## 📌 Notes
+
 All services communicate via REST behind the gateway.
 
 Every REST response follows a uniform error format using @ControllerAdvice.
 
 Kafka Stream processor is idempotent and resilient to reprocessing.
 
-👨‍💻 Author
+## 👨‍💻 Author
+
 Created with ❤️ by Niknaz Nakhaei
 
-📄 License
+## 📄 License
+
 MIT – use it freely.
