@@ -4,3 +4,10 @@ spring:
       bindings:
         processExpense-in-0:
           destination: expense-processor
+          content-type: application/json
+
+logging:
+  level:
+    org.apache.kafka: WARN
+    org.apache.kafka.streams: ERROR
+    org.springframework.cloud.stream.binder.kafka.streams: INFO
