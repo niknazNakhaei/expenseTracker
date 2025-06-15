@@ -12,7 +12,7 @@ public class CategoryUpdateDto {
     @NotBlank
     private String name;
     @NotNull
-    private Long userId;
+    private String userName;
     @NotNull
     private CategoryType type;
     private String description;

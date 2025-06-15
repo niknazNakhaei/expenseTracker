@@ -7,7 +7,7 @@ import lombok.Data;
 public class CategoryUpdateDto {
     private Long id;
     private String name;
-    private Long userId;
+    private String userName;
     private CategoryType type;
     private String description;
 }

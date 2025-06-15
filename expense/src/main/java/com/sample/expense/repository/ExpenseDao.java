@@ -21,13 +21,12 @@ public interface ExpenseDao extends JpaRepository<Expense, Long>, JpaSpecificati
                    e.CATEGORY_ID category
             FROM TBL_EXPENSE e
             WHERE CREATED_TIME BETWEEN :fromDate AND :toDate
-              AND e.USER_ID = :userId
               AND e.CATEGORY_ID = :categoryId
             GROUP BY e.CATEGORY_ID
             """
             , nativeQuery = true)
-    MonthlyExpense findMonthlyExpenseByCategoryIdAndUserId(@Param("categoryId") Long categoryId,
-                                                           @Param("userId") Long userId, @Param("fromDate") LocalDateTime fromDate,
-                                                           @Param("toDate") LocalDateTime toDate);
+    MonthlyExpense findMonthlyExpenseByCategoryId(@Param("categoryId") Long categoryId,
+                                                  @Param("fromDate") LocalDateTime fromDate,
+                                                  @Param("toDate") LocalDateTime toDate);
 
 }

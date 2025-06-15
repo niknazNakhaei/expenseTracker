@@ -56,8 +56,8 @@ public class TransactionalCategoryServiceImpl implements ReadOnlyCategoryService
             if (StringUtils.hasLength(searchDto.getName())) {
                 predicateList.add(builder.like(root.get("name"), "%" + searchDto.getName() + "%"));
             }
-            if (Objects.nonNull(searchDto.getUserId())) {
-                predicateList.add(builder.equal(root.get("userId"), searchDto.getUserId()));
+            if (Objects.nonNull(searchDto.getUserName())) {
+                predicateList.add(builder.equal(root.get("userName"), searchDto.getUserName()));
             }
             if (Objects.nonNull(searchDto.getType())) {
                 predicateList.add(builder.equal(root.get("type"), searchDto.getType()));
