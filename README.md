@@ -7,9 +7,11 @@ A modular expense tracking system with full JWT authentication, dynamic search u
 
 ## 🧱 Modules
 
+```
 ├── gateway # Entry point for client APIs
 ├── auth # Authentication & user management (JWT)
 └── expense # Expense tracking, categorization & Kafka processing
+```
 
 ## 🚀 How It Works
 
@@ -63,7 +65,8 @@ All major entities (`Category`, `Expense`, `MonthlyReport`) support dynamic filt
 Example:
 
 ```http
-POST http://localhost:8080/category/search
+POST http://localhost:8080/category/search 
+```
 
 ## 📂 Database Tables
 
