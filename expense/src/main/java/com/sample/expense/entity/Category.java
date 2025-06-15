@@ -3,6 +3,7 @@ package com.sample.expense.entity;
 import com.sample.expense.entity.enumeration.CategoryType;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TBL_CATEGORY")
 @SequenceGenerator(name = "GEN_SEQ_CATEGORY", sequenceName = "SEQ_CATEGORY", allocationSize = 10)
+@NoArgsConstructor
 public class Category {
 
     @Id

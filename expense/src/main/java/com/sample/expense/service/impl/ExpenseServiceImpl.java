@@ -15,6 +15,7 @@ import com.sample.expense.util.Topic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             SentEvent sentEvent = expenseService.saveExpense(expense);
             sentToKafkaConsumer(sentEvent);
         } catch (Exception e) {
+            log.warn(e.getMessage(),e);
             throw new InternalExpenseException(e.getMessage());
         }
     }
@@ -72,7 +74,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         log.info("Sent to Kafka consumer: {}", sentEvent);
         streamBridge.send(Topic.EXPENSE.getTopicName(),
                 MessageBuilder.withPayload(sentEvent)
-                        .setHeader("KEY", sentEvent.getCategory().getName()).build());
+                        .setHeader(KafkaHeaders.KEY, sentEvent.getCategory().getId().toString()).build());
     }
 
     @Override

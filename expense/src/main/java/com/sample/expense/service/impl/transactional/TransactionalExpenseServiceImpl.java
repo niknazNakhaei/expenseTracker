@@ -41,7 +41,6 @@ public class TransactionalExpenseServiceImpl implements ReadOnlyExpenseService {
             existExpense.setAmount(expense.getAmount());
             existExpense.setDescription(expense.getDescription());
             existExpense.setExpenseTime(expense.getExpenseTime());
-            expenseDao.save(existExpense);
             return sentEventService.saveSentEvent(expense.getCategory(), expense.getExpenseTime());
         }).orElseThrow(() -> new NotFoundExpenseException("Expense not found"));
     }

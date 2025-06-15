@@ -50,7 +50,6 @@ public class TransactionalMonthlyReportServiceImpl implements ReadOnlyMonthlyRep
                 existMonthlyReport -> {
                     existMonthlyReport.setCumulativeAmount(monthlyReport.getCumulativeAmount());
                     existMonthlyReport.setAlert(monthlyReport.getAlert());
-                    monthlyReportDao.save(existMonthlyReport);
                     try {
                         sentEventService.updateSentEvent(monthlyReport);
                     } catch (InternalExpenseException e) {

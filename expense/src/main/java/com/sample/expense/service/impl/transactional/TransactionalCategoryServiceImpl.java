@@ -36,7 +36,7 @@ public class TransactionalCategoryServiceImpl implements ReadOnlyCategoryService
         categoryDao.findById(category.getId()).map(existCategory -> {
             existCategory.setName(category.getName());
             existCategory.setDescription(category.getDescription());
-            return categoryDao.save(existCategory);
+            return existCategory;
         }).orElseThrow(() -> new NotFoundExpenseException("Category not found"));
     }
 

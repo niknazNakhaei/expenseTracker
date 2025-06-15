@@ -23,7 +23,7 @@ public class MonthlyReportProcess implements ForeachAction<String, MonthlyExpens
     private final MonthlyReportMapper monthlyReportMapper;
 
     @Override
-    public void apply(String Key, MonthlyExpense monthlyExpense) {
+    public void apply(String key, MonthlyExpense monthlyExpense) {
         try {
             Optional<MonthlyReport> lastMonthReport = findMonthReport(monthlyExpense, Boolean.TRUE);
             if (lastMonthReport.isPresent()) {

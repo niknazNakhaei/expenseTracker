@@ -20,24 +20,21 @@ public class TransactionalSentEventServiceImpl implements ReadOnlySentEventServi
 
     @Transactional
     public SentEvent saveSentEvent(SentEvent sentEvent) {
-        return sentEventDao.findByCategory_idAndExpenseTimeBetween(sentEvent.getId(),
+        return sentEventDao.findByCategory_idAndExpenseTimeBetween(sentEvent.getCategory().getId(),
                         TimeUtil.generateFirstDayOfMonth(sentEvent.getExpenseTime()),
                         TimeUtil.generateLastDayOfMonth(sentEvent.getExpenseTime()))
                 .map(existSentEvent -> {
                     existSentEvent.setProcessed(Boolean.FALSE);
                     existSentEvent.setExpenseTime(sentEvent.getExpenseTime());
                     existSentEvent.setUpdatedTime(LocalDateTime.now());
-                    return sentEventDao.save(sentEvent);
-                }).orElse(sentEventDao.save(sentEvent));
+                    return existSentEvent;
+                }).orElseGet(() -> sentEventDao.save(sentEvent));
     }
 
     @Transactional
     public void updateSentEvent(MonthlyReport monthlyReport) {
         sentEventDao.findByCategory_idAndExpenseTimeBetween(monthlyReport.getCategory().getId(), monthlyReport.getFromDate(), monthlyReport.getToDate()).ifPresentOrElse(
-                sentEvent -> {
-                    sentEvent.setProcessed(Boolean.TRUE);
-                    sentEventDao.save(sentEvent);
-                },
+                sentEvent -> sentEvent.setProcessed(Boolean.TRUE),
                 () -> {
                     throw new NotFoundSentEventException("Sent event not found");
                 }

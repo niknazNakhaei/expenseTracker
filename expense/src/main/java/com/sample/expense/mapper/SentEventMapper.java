@@ -14,7 +14,7 @@ public class SentEventMapper {
         sentEvent.setCategory(category);
         sentEvent.setExpenseTime(expenseTime);
         sentEvent.setProcessed(Boolean.FALSE);
-        sentEvent.setCreationTime(LocalDateTime.now());
+        sentEvent.setCreatedTime(LocalDateTime.now());
         return sentEvent;
     }
 }
