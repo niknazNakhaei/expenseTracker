@@ -1,6 +1,7 @@
 package com.sample.expense.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name="TBL_SENT_EVENT")
 @SequenceGenerator(name = "SEQ_GEN_SENT_EVENT", sequenceName = "SEQ_SENT_EVENT", allocationSize = 10)
 @NoArgsConstructor
+@AllArgsConstructor
 public class SentEvent {
 
     @Id

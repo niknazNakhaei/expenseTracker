@@ -72,7 +72,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     public void sentToKafkaConsumer(SentEvent sentEvent) {
         log.info("Sent to Kafka consumer: {}", sentEvent);
-        streamBridge.send(Topic.EXPENSE.getTopicName(),
+        streamBridge.send(Topic.EXPENSE.getProcessorName(),
                 MessageBuilder.withPayload(sentEvent)
                         .setHeader(KafkaHeaders.KEY, sentEvent.getCategory().getId().toString()).build());
     }

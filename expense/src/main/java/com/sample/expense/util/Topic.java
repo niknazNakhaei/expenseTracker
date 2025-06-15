@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Topic {
 
-    EXPENSE("expense-processor","processExpense-in-0");
+    EXPENSE("expense-processor","sendExpenseEvent-out-0");
 
     private final String topicName;
     private final String processorName;

@@ -30,6 +30,7 @@
         <maven-compiler-source.version>17</maven-compiler-source.version>
         <maven-compiler-target.version>17</maven-compiler-target.version>
         <spring-doc.version>2.8.9</spring-doc.version>
+        <jjwt.version>0.11.5</jjwt.version>
     </properties>
 
     <packaging>pom</packaging>
