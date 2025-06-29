@@ -10,8 +10,9 @@ import com.sample.expense.service.impl.transactional.TransactionalMonthlyReportS
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Slf4j
@@ -22,10 +23,11 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
     private final TransactionalMonthlyReportServiceImpl monthlyReportService;
 
     @Override
-    public Optional<MonthlyReport> findMonthlyReportByCategoryId(Long categoryId, LocalDateTime fromDate, LocalDateTime toDate) {
+    public Optional<MonthlyReport> findMonthlyReportByCategoryId(Long categoryId, LocalDate fromDate, LocalDate toDate) {
         return monthlyReportService.findMonthlyReportByCategoryId(categoryId, fromDate, toDate);
     }
 
+    @Transactional
     @Override
     public void saveMonthlyReport(MonthlyReport monthlyReport) throws InternalExpenseException {
         try {
@@ -34,8 +36,10 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
         } catch (Exception e) {
             throw new InternalExpenseException(e.getMessage(), e);
         }
+
     }
 
+    @Transactional
     @Override
     public void updateMonthlyReport(MonthlyReport monthlyReport) throws InternalExpenseException, NotFoundMonthlyReportException {
         try {
@@ -50,6 +54,7 @@ public class MonthlyReportServiceImpl implements MonthlyReportService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public MonthlyReportResponseSearch searchMonthlyReport(MonthlyReportSearchDto searchDto) {
         return monthlyReportService.searchMonthlyReport(searchDto);

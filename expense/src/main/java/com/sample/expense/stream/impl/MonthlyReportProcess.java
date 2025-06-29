@@ -34,7 +34,7 @@ public class MonthlyReportProcess implements ForeachAction<String, MonthlyExpens
                 addOrUpdateMonthlyReport(monthlyExpense, null);
             }
         } catch (Exception e) {
-            log.warn("An exception occurred during the category: {} processing", monthlyExpense.getCategoryId());
+            log.warn("An exception occurred during the monthlyExpense: {} processing", monthlyExpense, e);
         }
     }
 
@@ -42,11 +42,11 @@ public class MonthlyReportProcess implements ForeachAction<String, MonthlyExpens
         LocalDateTime fromDate = TimeUtil.generateFirstDayOfMonth(monthlyExpense.getExpenseTime());
         LocalDateTime toDate = TimeUtil.generateLastDayOfMonth(monthlyExpense.getExpenseTime());
         if (lastMonthReport) {
+            toDate = fromDate;
             fromDate = fromDate.minusMonths(1L);
-            toDate = toDate.minusMonths(1L);
         }
         return monthlyReportService.findMonthlyReportByCategoryId
-                (monthlyExpense.getCategoryId(), fromDate, toDate);
+                (monthlyExpense.getCategoryId(), fromDate.toLocalDate(), toDate.toLocalDate());
     }
 
     private String generateAlert(MonthlyExpense monthlyExpense, MonthlyReport lastReport) {

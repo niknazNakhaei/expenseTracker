@@ -17,10 +17,11 @@ public interface ExpenseDao extends JpaRepository<Expense, Long>, JpaSpecificati
     void deleteById(Long categoryId);
 
     @Query(value = """
-            SELECT SUM(e.AMOUNT) monthlyAmount,
-                   e.CATEGORY_ID category
+            SELECT SUM(e.AMOUNT) monthlyExpense,
+                   MAX(e.EXPENSE_TIME) expenseTime,
+                   e.CATEGORY_ID categoryId
             FROM TBL_EXPENSE e
-            WHERE CREATED_TIME BETWEEN :fromDate AND :toDate
+            WHERE e.EXPENSE_TIME BETWEEN :fromDate AND :toDate
               AND e.CATEGORY_ID = :categoryId
             GROUP BY e.CATEGORY_ID
             """

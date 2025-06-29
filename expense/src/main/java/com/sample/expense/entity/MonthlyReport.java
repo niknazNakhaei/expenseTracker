@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -24,9 +25,9 @@ public class MonthlyReport {
     @Column(name = "ALERT")
     private String alert;
     @Column(name = "FROM_DATE")
-    private LocalDateTime fromDate;
+    private LocalDate fromDate;
     @Column(name = "TO_DATE")
-    private LocalDateTime toDate;
+    private LocalDate toDate;
     @Column(name = "CREATED_TIME")
     private LocalDateTime createdTime;
     @Column(name = "UPDATED_TIME")

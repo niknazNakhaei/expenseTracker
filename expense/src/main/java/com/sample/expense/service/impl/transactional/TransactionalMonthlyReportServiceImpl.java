@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class TransactionalMonthlyReportServiceImpl implements ReadOnlyMonthlyRep
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<MonthlyReport> findMonthlyReportByCategoryId(Long categoryId, LocalDateTime fromDate, LocalDateTime toDate) {
-        return monthlyReportDao.findMonthlyReportByCategory_IdAndFromDateAndToDate(categoryId, fromDate, toDate);
+    public Optional<MonthlyReport> findMonthlyReportByCategoryId(Long categoryId, LocalDate fromDate, LocalDate toDate) {
+        return monthlyReportDao.findMonthlyReportByCategory_IdAndFromDateAndToDateLessThanEqual(categoryId, fromDate, toDate);
     }
 
     @Transactional
@@ -50,6 +51,7 @@ public class TransactionalMonthlyReportServiceImpl implements ReadOnlyMonthlyRep
                 existMonthlyReport -> {
                     existMonthlyReport.setCumulativeAmount(monthlyReport.getCumulativeAmount());
                     existMonthlyReport.setAlert(monthlyReport.getAlert());
+                    existMonthlyReport.setUpdatedTime(LocalDateTime.now());
                     try {
                         sentEventService.updateSentEvent(monthlyReport);
                     } catch (InternalExpenseException e) {

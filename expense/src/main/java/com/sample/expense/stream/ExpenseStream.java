@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 @Component
 @AllArgsConstructor
-public class ProcessExpense implements Consumer<KStream<String, SentEvent>> {
+public class ExpenseStream implements Consumer<KStream<String, SentEvent>> {
 
     private final MonthlyExpenseValueMapper monthlyExpenseValueMapper;
     private final MonthlyReportProcess monthlyReportProcess;

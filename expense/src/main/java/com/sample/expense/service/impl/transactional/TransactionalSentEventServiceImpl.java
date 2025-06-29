@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Service
 @AllArgsConstructor
@@ -33,7 +34,7 @@ public class TransactionalSentEventServiceImpl implements ReadOnlySentEventServi
 
     @Transactional
     public void updateSentEvent(MonthlyReport monthlyReport) {
-        sentEventDao.findByCategory_idAndExpenseTimeBetween(monthlyReport.getCategory().getId(), monthlyReport.getFromDate(), monthlyReport.getToDate()).ifPresentOrElse(
+        sentEventDao.findByCategory_idAndExpenseTimeBetween(monthlyReport.getCategory().getId(), monthlyReport.getFromDate().atStartOfDay(), monthlyReport.getToDate().atTime(LocalTime.MAX)).ifPresentOrElse(
                 sentEvent -> sentEvent.setProcessed(Boolean.TRUE),
                 () -> {
                     throw new NotFoundSentEventException("Sent event not found");

@@ -1,22 +1,41 @@
 spring:
   cloud:
+
+    function:
+      definition: processExpense;
+
     stream:
-      kafka:
-        binder:
-          brokers: localhost:9092
-          configuration:
-            key.serializer: org.apache.kafka.common.serialization.StringSerializer
-            default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
-            spring.json.trusted.packages: "*"
-        streams:
-          binder:
-            application-id: expense-tracker-app
+
       bindings:
         sendExpenseEvent-out-0:
           destination: expense-processor
         processExpense-in-0:
           destination: expense-processor
           content-type: application/json
+
+      kafka:
+        streams:
+
+          bindings:
+            processExpense-in-0:
+              consumer:
+                enable-dlq: true
+                dlq-name: expense-processor-dlq
+
+          binder:
+            application-id: expense-tracker-app
+            deserialization-exception-handler: sendtodlq
+
+        binder:
+          brokers: localhost:9092
+
+          configuration:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+            spring.json.trusted.packages: "*"
+
+
+
 
 logging:
   level:

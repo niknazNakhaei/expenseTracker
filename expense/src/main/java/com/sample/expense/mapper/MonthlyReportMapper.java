@@ -20,8 +20,8 @@ public class MonthlyReportMapper {
         Category category = new Category();
         category.setId(monthlyExpense.getCategoryId());
         monthlyReport.setCategory(category);
-        monthlyReport.setFromDate(TimeUtil.generateFirstDayOfMonth(monthlyExpense.getExpenseTime()));
-        monthlyReport.setToDate(TimeUtil.generateLastDayOfMonth(monthlyExpense.getExpenseTime()));
+        monthlyReport.setFromDate(TimeUtil.generateFirstDayOfMonth(monthlyExpense.getExpenseTime()).toLocalDate());
+        monthlyReport.setToDate(TimeUtil.generateLastDayOfMonth(monthlyExpense.getExpenseTime()).toLocalDate());
         if(StringUtils.hasLength(alert)) {
             monthlyReport.setAlert(alert);
         }

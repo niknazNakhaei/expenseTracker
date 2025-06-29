@@ -29,7 +29,7 @@ public class MonthlyExpenseValueMapper implements ValueMapper<SentEvent, Iterabl
             LocalDateTime toDate = TimeUtil.generateLastDayOfMonth(sentEvent.getExpenseTime());
             return List.of(expenseDao.findMonthlyExpenseByCategoryId(sentEvent.getCategory().getId(), fromDate, toDate));
         } catch (Exception e) {
-            log.warn("An exception occurred while finding the monthly amount by categoryId : {}", sentEvent.getCategory().getId(), e);
+            log.warn("An exception occurred while finding the monthly amount by sentEvent : {}", sentEvent, e);
             return Collections.emptyList();
         }
     }

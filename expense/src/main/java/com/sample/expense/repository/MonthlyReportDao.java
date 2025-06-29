@@ -4,12 +4,11 @@ import com.sample.expense.entity.MonthlyReport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public interface MonthlyReportDao extends JpaRepository<MonthlyReport, Long>, JpaSpecificationExecutor<MonthlyReport> {
 
-    Optional<MonthlyReport> findMonthlyReportByCategory_IdAndFromDateAndToDate(Long categoryId, LocalDateTime fromDate,
-                                                                               LocalDateTime toDate);
+    Optional<MonthlyReport> findMonthlyReportByCategory_IdAndFromDateAndToDateLessThanEqual(Long categoryId, LocalDate fromDate, LocalDate toDate);
 
 }
